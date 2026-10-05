@@ -1,0 +1,20 @@
+Copyright (c) 2026 Shu-Yi Yang, Michael Anthony, Mingsian R. Bai
+National Tsing Hua University, Hsinchu, Taiwan
+
+The audio, video and image files in this repository are licensed under the
+Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).
+
+    https://creativecommons.org/licenses/by-nc/4.0/
+
+You are free to share and adapt this material for non-commercial purposes,
+provided you give appropriate credit and indicate if changes were made.
+
+The page itself (index.html) is licensed under the MIT License.
+
+NOTE ON THE UNDERLYING CORPORA
+
+The audio is derived from speech and noise material drawn from the CSTR VCTK
+Corpus, LibriSpeech, and WHAM!, each of which carries its own licence. The
+non-commercial term above reflects the most restrictive of those. Verify the
+current licence of each corpus before redistributing this material under any
+other terms.

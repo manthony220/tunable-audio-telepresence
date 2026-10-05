@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Head-Tracked Tunable Audio Telepresence — Audio Demos</title>
+<meta name="description" content="Listening examples and video demonstrations for a head-tracked tunable audio telepresence system based on the GMM-SAS framework.">
+<style>
+  :root{
+    --bg:#ffffff; --surface:#f7f7f8; --border:#e3e3e6;
+    --ink:#16161a; --ink-2:#55555f; --ink-3:#85858f;
+    --accent:#1f4fd8; --accent-soft:#eef2fe;
+    --radius:10px;
+    --mono:ui-monospace,SFMono-Regular,"SF Mono",Menlo,Consolas,monospace;
+  }
+  @media (prefers-color-scheme:dark){
+    :root:not([data-theme="light"]){
+      --bg:#111114; --surface:#1a1a1f; --border:#2c2c33;
+      --ink:#ededf0; --ink-2:#a8a8b3; --ink-3:#74747f;
+      --accent:#7da2ff; --accent-soft:#1b2440;
+    }
+  }
+  :root[data-theme="dark"]{
+    --bg:#111114; --surface:#1a1a1f; --border:#2c2c33;
+    --ink:#ededf0; --ink-2:#a8a8b3; --ink-3:#74747f;
+    --accent:#7da2ff; --accent-soft:#1b2440;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0; background:var(--bg); color:var(--ink);
+    font:16px/1.65 system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+    font-feature-settings:"kern","liga";
+  }
+  .wrap{max-width:1240px; margin:0 auto; padding:0 16px 96px}
+  header{padding:56px 0 28px; border-bottom:1px solid var(--border); margin-bottom:36px}
+  h1{font-size:clamp(1.5rem,3.4vw,2.1rem); line-height:1.25; margin:0 0 14px; letter-spacing:-.015em}
+  .authors{color:var(--ink-2); margin:0 0 4px}
+  .affil{color:var(--ink-3); font-size:.9rem; margin:0}
+  .paperlink{margin-top:18px; font-size:.93rem}
+  .paperlink a{color:var(--accent)}
+  h2{font-size:1.18rem; letter-spacing:-.01em; margin:48px 0 6px}
+  h2:first-of-type{margin-top:0}
+  .lede{color:var(--ink-2); margin:0 0 22px; max-width:68ch}
+  p{max-width:72ch}
+
+  .condition{
+    display:inline-flex; flex-wrap:wrap; gap:6px 16px; align-items:baseline;
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:9px 15px; margin:0 0 22px;
+    font-size:.88rem; color:var(--ink-2); max-width:none;
+  }
+  .condition b{color:var(--ink); font-weight:600; letter-spacing:.01em}
+  .condition span{white-space:nowrap}
+  .condition var{font-style:normal; color:var(--ink-3)}
+  .notice{
+    display:flex; gap:12px; align-items:flex-start;
+    background:var(--accent-soft); border:1px solid var(--border);
+    border-radius:var(--radius); padding:14px 16px; margin:0 0 30px;
+  }
+  .notice svg{flex:none; margin-top:2px; color:var(--accent)}
+  .notice p{margin:0; font-size:.94rem; max-width:none}
+
+  /* ---- comparison grid ---- */
+  .grid{
+    display:grid;
+    grid-template-columns:128px repeat(3,minmax(0,1fr));
+    gap:14px; align-items:start; margin-bottom:8px;
+  }
+  .inputcard{max-width:392px; margin:0 0 34px}
+  .inputcard .meta{font-size:.84rem; color:var(--ink-3); margin:7px 2px 0}
+  .ghead{
+    font-size:.85rem; font-weight:600; letter-spacing:.02em;
+    color:var(--ink-2); padding-bottom:6px; border-bottom:1px solid var(--border);
+  }
+  .ghead .a{color:var(--ink-3); font-weight:400}
+  .rowlabel{
+    font-size:.93rem; font-weight:600; padding-top:10px; line-height:1.4;
+  }
+  .rowlabel .sub{display:block; font-weight:400; font-size:.8rem; color:var(--ink-3); margin-top:3px}
+  .cell{
+    background:var(--surface); border:1px solid var(--border);
+    border-radius:var(--radius); padding:10px; min-width:0;
+  }
+  .cell.span{grid-column:2 / -1}
+  .cell img{width:100%; height:auto; display:block; border-radius:6px; background:#fff}
+  .cell audio{width:100%; margin-top:10px; display:block}
+  .celltag{display:none; font-size:.82rem; font-weight:600; color:var(--ink-2); margin-bottom:8px}
+
+  /* ---- video ---- */
+  .videos{display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:18px}
+  .vcard{background:var(--surface); border:1px solid var(--border); border-radius:var(--radius); padding:10px}
+  .vcard video{width:100%; height:auto; display:block; border-radius:6px; background:#000}
+  .vcard h3{font-size:.95rem; margin:10px 2px 2px}
+  .vcard p{font-size:.84rem; color:var(--ink-3); margin:0 2px; max-width:none}
+
+  /* ---- notes ---- */
+  .notes{border-top:1px solid var(--border); margin-top:56px; padding-top:28px}
+  .notes dl{display:grid; grid-template-columns:168px 1fr; gap:10px 22px; margin:0}
+  .notes dt{font-weight:600; font-size:.9rem}
+  .notes dd{margin:0; color:var(--ink-2); font-size:.93rem}
+  .notes dd a{color:var(--accent)}
+  pre{
+    background:var(--surface); border:1px solid var(--border); border-radius:var(--radius);
+    padding:14px 16px; overflow-x:auto; font:12.5px/1.6 var(--mono); color:var(--ink-2);
+  }
+  footer{margin-top:52px; padding-top:22px; border-top:1px solid var(--border); color:var(--ink-3); font-size:.87rem}
+
+  @media (max-width:860px){
+    .grid{grid-template-columns:1fr; gap:10px}
+    .ghead{display:none}
+    .rowlabel{
+      padding-top:22px; font-size:1rem;
+      border-bottom:1px solid var(--border); padding-bottom:6px;
+    }
+    .cell.span{grid-column:auto}
+    .celltag{display:block}
+    .videos{grid-template-columns:1fr}
+    .notes dl{grid-template-columns:1fr; gap:2px 0}
+    .notes dd{margin-bottom:14px}
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <h1>A Head-Tracked Tunable Audio Telepresence System Based on the Generalized Model-Matching Sound Field Analysis and Synthesis Framework</h1>
+  <p class="authors">Shu-Yi Yang, Michael Anthony, Mingsian R. Bai</p>
+  <p class="affil">National Tsing Hua University, Hsinchu, Taiwan</p>
+  <p class="paperlink"><strong>Paper:</strong> <!-- TODO: replace with the DOI once the article is published -->link to appear</p>
+</header>
+
+<h2>Listening examples</h2>
+<p class="lede">The same test utterance reproduced in the three modes. Read <strong>down a column</strong> to compare the methods within one mode; read <strong>across a row</strong> to hear the tuning parameter&nbsp;α move the system from speech enhancement to full-scene immersion.</p>
+
+<p class="condition">
+  <b>Simulated room</b>
+  <span><var>T</var><sub>60</sub> = 400 ms</span>
+  <span>SNR = 17 dB</span>
+  <span>SIR = 0.88 dB</span>
+</p>
+
+<div class="notice">
+  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 14v-2a9 9 0 0 1 18 0v2"/><path d="M21 15a2 2 0 0 1-2 2h-1v-5h1a2 2 0 0 1 2 2zM3 15a2 2 0 0 0 2 2h1v-5H5a2 2 0 0 0-2 2z"/></svg>
+  <p><strong>Please use headphones.</strong> These are binaural ear signals. Over loudspeakers the interaural cues the system reproduces will not survive, and the comparison will not mean anything.</p>
+</div>
+
+<h3 style="font-size:.95rem;margin:0 0 8px">Unprocessed</h3>
+<div class="inputcard">
+  <div class="cell">
+    <img src="figures/em_unprocessed.png" alt="Spectrogram of the unprocessed condition">
+    <audio controls preload="none" src="audio/unprocessed.wav"></audio>
+  </div>
+  <p class="meta">The common starting point — no spatial processing, and identical in all three modes.</p>
+</div>
+
+<div class="grid">
+  <div></div>
+  <div class="ghead">EM <span class="a">(α = 0)</span></div>
+  <div class="ghead">MM <span class="a">(α = 0.5)</span></div>
+  <div class="ghead">IM <span class="a">(α = 1)</span></div>
+
+  <div class="rowlabel">Desired</div>
+  <div class="cell"><div class="celltag">Desired — EM (α = 0)</div><img src="figures/em_desired.png" alt="Spectrogram of the desired signal, EM"><audio controls preload="none" src="audio/em_desired.wav"></audio></div>
+  <div class="cell"><div class="celltag">Desired — MM (α = 0.5)</div><img src="figures/mm_desired.png" alt="Spectrogram of the desired signal, MM"><audio controls preload="none" src="audio/mm_desired.wav"></audio></div>
+  <div class="cell"><div class="celltag">Desired — IM (α = 1)</div><img src="figures/im_desired.png" alt="Spectrogram of the desired signal, IM"><audio controls preload="none" src="audio/im_desired.wav"></audio></div>
+
+  <div class="rowlabel">DSP-based baseline</div>
+  <div class="cell"><div class="celltag">DSP-based baseline — EM (α = 0)</div><img src="figures/em_dsp.png" alt="Spectrogram of the DSP-based baseline, EM"><audio controls preload="none" src="audio/em_dsp.wav"></audio></div>
+  <div class="cell"><div class="celltag">DSP-based baseline — MM (α = 0.5)</div><img src="figures/mm_dsp.png" alt="Spectrogram of the DSP-based baseline, MM"><audio controls preload="none" src="audio/mm_dsp.wav"></audio></div>
+  <div class="cell"><div class="celltag">DSP-based baseline — IM (α = 1)</div><img src="figures/im_dsp.png" alt="Spectrogram of the DSP-based baseline, IM"><audio controls preload="none" src="audio/im_dsp.wav"></audio></div>
+
+  <div class="rowlabel">mSEMamba<span class="sub">proposed</span></div>
+  <div class="cell"><div class="celltag">mSEMamba — EM (α = 0)</div><img src="figures/em_msemamba.png" alt="Spectrogram of the mSEMamba output, EM"><audio controls preload="none" src="audio/em_msemamba.wav"></audio></div>
+  <div class="cell"><div class="celltag">mSEMamba — MM (α = 0.5)</div><img src="figures/mm_msemamba.png" alt="Spectrogram of the mSEMamba output, MM"><audio controls preload="none" src="audio/mm_msemamba.wav"></audio></div>
+  <div class="cell"><div class="celltag">mSEMamba — IM (α = 1)</div><img src="figures/im_msemamba.png" alt="Spectrogram of the mSEMamba output, IM"><audio controls preload="none" src="audio/im_msemamba.wav"></audio></div>
+</div>
+
+<h2>System demonstration</h2>
+<p class="lede">The complete system running end to end in the measured room, from far-end analysis through near-end reproduction. In each clip the talker begins inside the target zone — here, the region the camera sees — and walks out of it about twenty seconds in. What happens to her voice at that moment is what separates the three modes.</p>
+
+<div class="videos">
+  <div class="vcard">
+    <video controls preload="metadata" src="video/em.mp4"></video>
+    <h3>Enhancement Mode <span style="font-weight:400;color:var(--ink-3)">· α = 0</span></h3>
+    <p>Her voice is retained while she is inside the zone, and suppressed to silence once she leaves it.</p>
+  </div>
+  <div class="vcard">
+    <video controls preload="metadata" src="video/mm.mp4"></video>
+    <h3>Mixture Mode <span style="font-weight:400;color:var(--ink-3)">· α = 0.5</span></h3>
+    <p>Her voice is attenuated after she leaves the zone, but stays audible.</p>
+  </div>
+  <div class="vcard">
+    <video controls preload="metadata" src="video/im.mp4"></video>
+    <h3>Immersion Mode <span style="font-weight:400;color:var(--ink-3)">· α = 1</span></h3>
+    <p>Her voice is preserved at the same level wherever she stands.</p>
+  </div>
+</div>
+
+<div class="notes">
+<h2>Citation</h2>
+<pre>@article{yang_tunable_telepresence,
+  title   = {A Head-Tracked Tunable Audio Telepresence System Based on the
+             Generalized Model-Matching Sound Field Analysis and Synthesis Framework},
+  author  = {Yang, Shu-Yi and Anthony, Michael and Bai, Mingsian R.},
+  journal = {Discover Robotics},
+  year    = {2026}
+}</pre>
+</div>
+
+<footer>
+  Supplementary material for the manuscript above. Supported by the National Science and
+  Technology Council (NSTC) under grant 113-2221-E-007-057-MY3.<br>
+  Speech from the <a href="https://datashare.ed.ac.uk/handle/10283/3443">CSTR VCTK Corpus</a>
+  and <a href="https://www.openslr.org/12">LibriSpeech</a>; background noise from
+  <a href="http://wham.whisper.ai/">WHAM!</a>.
+</footer>
+
+</div>
+
+<script>
+  // open any spectrogram at full size
+  document.querySelectorAll('.cell img').forEach(function (img) {
+    img.style.cursor = 'zoom-in';
+    img.addEventListener('click', function () { window.open(img.src, '_blank', 'noopener'); });
+  });
+</script>
+</body>
+</html>
